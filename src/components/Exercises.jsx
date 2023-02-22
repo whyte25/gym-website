@@ -9,6 +9,8 @@ export const Exercises = ({ exercises, setExercises, bodyPart }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const exercisesPerPage = 10;
 
+  const exerciseDbUrl = import.meta.env.VITE_EXERCISEDB_URL;
+
   const indexOfLastExercise = currentPage * exercisesPerPage;
   const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage;
   const currentExercises = exercises.slice(
@@ -27,13 +29,10 @@ export const Exercises = ({ exercises, setExercises, bodyPart }) => {
       let exercisesData = [];
 
       if (bodyPart === "all") {
-        exercisesData = await fetchData(
-          "https://exercisedb.p.rapidapi.com/exercises",
-          exerciseOption
-        );
+        exercisesData = await fetchData(`${exerciseDbUrl}`, exerciseOption);
       } else {
         exercisesData = await fetchData(
-          `https://exercisedb.p.rapidapi.com/exercises/bodypart/${bodyPart}`,
+          `${exerciseDbUrl}/exercises/bodypart/${bodyPart}`,
           exerciseOption
         );
       }
