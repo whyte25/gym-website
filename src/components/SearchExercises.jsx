@@ -8,12 +8,10 @@ export const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
   const [search, setSearch] = React.useState("");
   const [bodyParts, setBodyParts] = React.useState([]);
 
-  const exerciseDbUrl = import.meta.env.VITE_EXERCISEDB_URL;
-
   useEffect(() => {
     const fetchExercisesData = async () => {
       const bodyPartsData = await fetchData(
-        `${exerciseDbUrl}/exercises/bodyPartList`,
+        `${import.meta.env.VITE_EXERCISEDB_URL}/exercises/bodyPartList`,
         exerciseOption
       );
       setBodyParts(["all", ...bodyPartsData]);
@@ -23,7 +21,10 @@ export const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
 
   const handleSearch = async () => {
     if (search) {
-      const exercisesData = await fetchData(`${exerciseDbUrl}`, exerciseOption);
+      const exercisesData = await fetchData(
+        `${import.meta.env.VITE_EXERCISE_URL}/exercises`,
+        exerciseOption
+      );
       const searchedExercises = exercisesData.filter(
         (exercise) =>
           exercise.name.toLowerCase().includes(search) ||
@@ -89,7 +90,7 @@ export const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
           bodyPart={bodyPart}
           setBodyPart={setBodyPart}
           data={bodyParts}
-          isBodyParts={isBodyParts}
+          isBodyParts={bodyParts}
         />
       </Box>
     </Stack>

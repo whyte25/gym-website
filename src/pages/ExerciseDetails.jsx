@@ -18,13 +18,15 @@ const ExerciseDetails = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
 
     const fetchExercisesData = async () => {
-      const exerciseDbUrl = import.meta.env.VITE_EXERCISEDB_URL;
-      const youtubeSearchUrl = import.meta.env.VITE_YOUTUBE_SEARCH_UR;
+      const exerciseDbUrl = `${import.meta.env.VITE_EXERCISEDB_URL}`;
+      const youtubeSearchUrl = `${import.meta.env.VITE_YOUTUBE_SEARCH_URL}`;
+
       const exerciseDetailData = await fetchData(
         `${exerciseDbUrl}/exercises/exercise/${id}`,
         exerciseOption
       );
       setExerciseDetail(exerciseDetailData);
+      console.log(exerciseDetailData.name);
 
       const exerciseVideosData = await fetchData(
         `${youtubeSearchUrl}/search?query=${exerciseDetailData.name} exercise`,
